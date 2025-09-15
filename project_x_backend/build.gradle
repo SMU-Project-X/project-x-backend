@@ -25,15 +25,37 @@ repositories {
 }
 
 dependencies {
+	// JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
+	// 웹
 	implementation 'org.springframework.boot:spring-boot-starter-web'
+	
+	// Lombok
 	compileOnly 'org.projectlombok:lombok'
-	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
 	annotationProcessor 'org.projectlombok:lombok'
+	
+	// 개발 편의
+	developmentOnly 'org.springframework.boot:spring-boot-devtools'
+	
+	// DB 드라이버 (오라클)
+	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
+	
+	// 테스트
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // JSP
+    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+
+    // JSTL
+    implementation 'jakarta.servlet:jakarta.servlet-api'
+    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
+    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+
+    // 파일 업로드
+    implementation "commons-io:commons-io:2.20.0"
 }
 
 tasks.named('test') {
