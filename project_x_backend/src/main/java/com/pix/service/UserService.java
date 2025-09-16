@@ -8,4 +8,8 @@ import com.pix.dto.User;
 public interface UserService {
 	User save(User u) ;
 
+	User findByUserIdAndPassword(String userId, String password);
+
+	User findByNameAndEmail(String name, String email);
+
 }

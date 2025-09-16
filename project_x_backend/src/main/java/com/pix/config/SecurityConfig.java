@@ -16,6 +16,7 @@ public class SecurityConfig {
             .csrf(csrf -> csrf.disable()) // 개발용
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/signup/**").permitAll() // 회원가입 허용
+                .requestMatchers("/api/login/**").permitAll()
                 .anyRequest().authenticated()
             );
 
