@@ -3,21 +3,46 @@ package com.pix.light_stick.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import org.hibernate.annotations.Check;
+import org.hibernate.annotations.ColumnDefault;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "lightstick_share",
-        uniqueConstraints = @UniqueConstraint(name = "uq_ls_share_code", columnNames = "code"))
+@Table(
+        name = "lightstick_share",
+        uniqueConstraints = @UniqueConstraint(name = "uq_ls_share_code", columnNames = "code")
+)
+/**
+ * 수동 DDL의 CHECK/JSON 제약을 하나의 CHECK로 합쳐서 부여
+ * (Hibernate는 @Check를 엔티티에 1개만 다는 걸 권장 → 조건을 AND로 묶어 한 번에 기술)
+ */
+@Check(constraints =
+        "cap_shape IN ('sphere','star','heart','hemisphere') AND " +
+                "thickness IN ('thin','wide') AND " +
+                "body_length IN ('short','long') AND " +
+                "REGEXP_LIKE(body_color, '^#[0-9A-Fa-f]{6}$') AND " +
+                "REGEXP_LIKE(cap_color, '^#[0-9A-Fa-f]{6}$') AND " +
+                "metallic BETWEEN 0 AND 1 AND " +
+                "roughness BETWEEN 0 AND 1 AND " +
+                "transmission BETWEEN 0 AND 1 AND " +
+                "sticker_scale BETWEEN 0.1 AND 1 AND " +
+                "sticker_y BETWEEN 0 AND 1 AND " +
+                "is_public IN (0,1) AND " +
+                "spec IS JSON"
+)
 @Getter @Setter
 public class LightstickShare {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY) // Oracle 12c+ IDENTITY 지원
     @Column(name = "share_id", nullable = false, precision = 19)
     private Long shareId;
 
+    // FK를 자동 생성하려면 아래를 ManyToOne으로 바꿔야 함(아래 3번 참고). 지금은 컬럼만 생성.
     @Column(name = "user_id", nullable = false, precision = 19)
     private Long userId;
 
@@ -65,24 +90,19 @@ public class LightstickShare {
     private String spec;
 
     @Column(name = "is_public", precision = 1)
+    @ColumnDefault("1") // DDL에 DEFAULT 1 생성
     private Integer isPublic;
 
     @Column(name = "spec_hash", length = 64)
     private String specHash;
 
-    @Column(name = "created_at")
+    @CreationTimestamp
+    @Column(name = "created_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
+    @UpdateTimestamp
+    @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedAt;
 
-    @PrePersist
-    void onCreate() {
-        if (isPublic == null) isPublic = 1;
-        createdAt = LocalDateTime.now();
-        updatedAt = createdAt;
-    }
-
-    @PreUpdate
-    void onUpdate() { updatedAt = LocalDateTime.now(); }
+    // @PrePersist / @PreUpdate 는 DB DEFAULT/UpdateTimestamp와 중복되니 제거
 }
