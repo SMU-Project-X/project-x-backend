@@ -8,6 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.math.RoundingMode;
 import java.nio.charset.StandardCharsets;
@@ -15,6 +16,8 @@ import java.security.MessageDigest;
 import java.security.SecureRandom;
 import java.util.LinkedHashMap;
 import java.util.Map;
+
+import static org.springframework.http.HttpStatus.NOT_FOUND;
 
 @Service
 @RequiredArgsConstructor
@@ -113,5 +116,26 @@ public class LightstickShareService {
         }
         // 도달 불가
         throw new IllegalStateException("알 수 없는 오류");
+    }
+
+    /** 코드로 단건 조회 */
+    @Transactional(readOnly = true)
+    public LightstickShareDtos.ShareDetail getByCode(String code) {
+        LightstickShare e = repo.findByCode(code)
+                .orElseThrow(() -> new ResponseStatusException(NOT_FOUND, "코드를 찾을 수 없습니다."));
+        return toDetail(e);
+    }
+
+    /** 엔티티 → 응답 DTO 매핑 */
+    private LightstickShareDtos.ShareDetail toDetail(LightstickShare e) {
+        return new LightstickShareDtos.ShareDetail(
+                e.getShareId(), e.getCode(),
+                e.getCapShape(), e.getThickness(), e.getBodyLength(),
+                e.getBodyColor(), e.getCapColor(),
+                e.getMetallic(), e.getRoughness(), e.getTransmission(),
+                e.getFigureCode(),
+                e.getStickerScale(), e.getStickerY(),
+                e.getStickerAssetUrl()
+        );
     }
 }

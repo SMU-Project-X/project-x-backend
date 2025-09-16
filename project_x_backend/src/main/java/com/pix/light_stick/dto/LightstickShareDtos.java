@@ -32,4 +32,14 @@ public class LightstickShareDtos {
     ) {}
 
     public record ShareResponse(Long shareId, String code) {}
+
+    public record ShareDetail(
+            Long shareId, String code,
+            String capShape, String thickness, String bodyLength,
+            String bodyColor, String capColor,
+            java.math.BigDecimal metallic, java.math.BigDecimal roughness, java.math.BigDecimal transmission,
+            String figureCode,
+            java.math.BigDecimal stickerScale, java.math.BigDecimal stickerY,
+            String stickerAssetUrl
+    ) {}
 }
