@@ -1,4 +1,4 @@
-package com.pix.light_stick.domain;
+package com.pix.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;

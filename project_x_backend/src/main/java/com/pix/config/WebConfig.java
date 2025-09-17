@@ -1,4 +1,4 @@
-package com.pix.light_stick.config;
+package com.pix.config;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -29,7 +29,7 @@ public class WebConfig implements WebMvcConfigurer {
                 .allowCredentials(true)
                 .maxAge(3600);
     }
-
+    // 응원봉. 유저가 스티커 이미지 파일 업로드 시 저장 경로
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         // 예) app.upload-dir=./uploads/stickers → 절대경로로 변환 후 /files/** 에 매핑

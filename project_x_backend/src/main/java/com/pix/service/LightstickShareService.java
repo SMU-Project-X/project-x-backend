@@ -1,9 +1,9 @@
-package com.pix.light_stick.service;
+package com.pix.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.pix.light_stick.domain.LightstickShare;
-import com.pix.light_stick.dto.LightstickShareDtos;
-import com.pix.light_stick.repository.LightstickShareRepository;
+import com.pix.domain.LightstickShare;
+import com.pix.dto.LightstickShareDtos;
+import com.pix.repository.LightstickShareRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;

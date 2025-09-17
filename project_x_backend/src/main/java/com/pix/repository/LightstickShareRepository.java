@@ -1,6 +1,6 @@
-package com.pix.light_stick.repository;
+package com.pix.repository;
 
-import com.pix.light_stick.domain.LightstickShare;
+import com.pix.domain.LightstickShare;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;

@@ -1,7 +1,7 @@
-package com.pix.light_stick.controller;
+package com.pix.controller;
 
-import com.pix.light_stick.dto.LightstickShareDtos;
-import com.pix.light_stick.service.LightstickShareService;
+import com.pix.dto.LightstickShareDtos;
+import com.pix.service.LightstickShareService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
