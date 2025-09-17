@@ -73,7 +73,7 @@ public class LightstickShareController {
         );
     }
 
-    // (선택) 간단한 400 처리
+    // 400 처리
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(org.springframework.http.HttpStatus.BAD_REQUEST)
     public Map<String, String> handleBadReq(IllegalArgumentException e) {

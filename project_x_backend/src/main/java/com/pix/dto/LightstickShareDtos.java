@@ -22,13 +22,13 @@ public class LightstickShareDtos {
             @NotNull @DecimalMin("0.000") @DecimalMax("1.000") @Digits(integer = 1, fraction = 3) BigDecimal roughness,
             @NotNull @DecimalMin("0.000") @DecimalMax("1.000") @Digits(integer = 1, fraction = 3) BigDecimal transmission,
 
-            String figureCode, // 선택
+            String figureCode,
 
             // 스케일: 0.100 ~ 1.000
             @NotNull @DecimalMin("0.100") @DecimalMax("1.000") @Digits(integer = 1, fraction = 3) BigDecimal stickerScale,
             @NotNull @DecimalMin("0.000") @DecimalMax("1.000") @Digits(integer = 1, fraction = 3) BigDecimal stickerY,
 
-            String stickerAssetUrl // 선택(업로드 붙이면 사용)
+            String stickerAssetUrl
     ) {}
 
     public record ShareResponse(Long shareId, String code) {}

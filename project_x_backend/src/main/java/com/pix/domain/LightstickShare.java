@@ -103,6 +103,4 @@ public class LightstickShare {
     @UpdateTimestamp
     @Column(name = "updated_at", columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
     private LocalDateTime updatedAt;
-
-    // @PrePersist / @PreUpdate 는 DB DEFAULT/UpdateTimestamp와 중복되니 제거
 }
