@@ -4,22 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="8f06ad9e-0c3b-4d01-b8de-ff33e354371a" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/controller/PsyTraitCounterController.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/domain/PsyTraitCounter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/dto/PsyHitRequest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/dto/PsyHitResponse.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/repository/PsyTraitCounterRepository.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/service/PsyTraitCounterService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/light_stick/config/WebConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/config/WebConfig.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/light_stick/controller/LightstickShareController.java" beforeDir="false" afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/controller/LightstickShareController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/light_stick/domain/LightstickShare.java" beforeDir="false" afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/domain/LightstickShare.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/light_stick/dto/LightstickShareDtos.java" beforeDir="false" afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/dto/LightstickShareDtos.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/light_stick/repository/LightstickShareRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/repository/LightstickShareRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/light_stick/service/LightstickShareService.java" beforeDir="false" afterPath="$PROJECT_DIR$/project_x_backend/src/main/java/com/pix/service/LightstickShareService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/project_x_backend/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/project_x_backend/src/main/resources/application.properties" afterDir="false" />
-    </list>
+    <list default="true" id="8f06ad9e-0c3b-4d01-b8de-ff33e354371a" name="Changes" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -102,13 +87,75 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="project_x_backend.test" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="project_x_backend.test" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="project_x_backend.test" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Python.FlaskServer">
+      <module name="project_x_backend.test" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <method v="2" />
+    </configuration>
     <configuration name="ProjectXBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
+      <option name="ALTERNATIVE_JRE_PATH" value="21" />
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="project_x_backend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pix.ProjectXBackendApplication" />
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="project_x_backend.test" />
+      <option name="ENV_FILES" value="" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <method v="2" />
     </configuration>
   </component>
   <component name="SharedIndexes">
