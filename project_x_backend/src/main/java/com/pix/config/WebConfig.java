@@ -1,3 +1,4 @@
+
 package com.pix.config;
 
 import org.springframework.beans.factory.annotation.Value;
@@ -38,3 +39,4 @@ public class WebConfig implements WebMvcConfigurer {
                 .addResourceLocations("file:" + absolutePath);
     }
 }
+

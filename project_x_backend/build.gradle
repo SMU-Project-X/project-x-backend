@@ -6,7 +6,7 @@ plugins {
 
 group = 'com.pix'
 version = '0.0.1-SNAPSHOT'
-description = 'project_x_backend'
+description = '프로젝트x'
 
 java {
 	toolchain {
@@ -25,9 +25,9 @@ repositories {
 }
 
 dependencies {
-	// JPA
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
 	// 비밀번호 해시 처리
     implementation 'org.springframework.boot:spring-boot-starter-security'
     // 이메일 인증
@@ -36,32 +36,33 @@ dependencies {
 	
 	// 웹
 	implementation 'org.springframework.boot:spring-boot-starter-web'
-	
-	// Lombok
 	compileOnly 'org.projectlombok:lombok'
-	annotationProcessor 'org.projectlombok:lombok'
-	
-	// 개발 편의
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
-	
-	// DB 드라이버 (오라클)
 	runtimeOnly 'com.oracle.database.jdbc:ojdbc11'
-	
-	// 테스트
+	annotationProcessor 'org.projectlombok:lombok'
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	// JSP
+	implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
+	// JSTL
+	implementation 'jakarta.servlet:jakarta.servlet-api' //스프링부트 3.0 이상
+	implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api' //스프링부트 3.0 이상
+	implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl' //스프링부트 3.0 이상
+	
+	//파일업로드
+	implementation("commons-io:commons-io:2.20.0")
+	
+	// email text메일 보냄
+	implementation 'org.springframework.boot:spring-boot-starter-mail'
+	// email html메일 보냄
+	implementation 'javax.mail:javax.mail-api:1.6.2'
+}
 
-    // JSP
-    implementation 'org.apache.tomcat.embed:tomcat-embed-jasper'
 
-    // JSTL
-    implementation 'jakarta.servlet:jakarta.servlet-api'
-    implementation 'jakarta.servlet.jsp.jstl:jakarta.servlet.jsp.jstl-api'
-    implementation 'org.glassfish.web:jakarta.servlet.jsp.jstl'
+// 🟢 이 부분을 올바른 위치에 배치
+tasks.named('compileJava') {
+	options.compilerArgs.add('-parameters')
 
-    // 파일 업로드
-    implementation "commons-io:commons-io:2.20.0"
-    
 }
 
 tasks.named('test') {

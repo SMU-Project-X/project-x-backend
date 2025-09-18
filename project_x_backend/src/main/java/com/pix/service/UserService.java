@@ -13,3 +13,4 @@ public interface UserService {
 	User findByNameAndEmail(String name, String email);
 
 }
+
