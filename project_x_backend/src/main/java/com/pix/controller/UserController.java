@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.pix.dto.User;
+import com.pix.dto.UserDto;
+import com.pix.entity.UsersEntity;
 import com.pix.service.EmailService;
 import com.pix.service.EmailServiceImpl;
 import com.pix.service.UserService;
@@ -34,17 +35,15 @@ public class UserController {
 	@PostMapping("/api/signup/info")
     public ResponseEntity<String> info(@RequestBody Map<String, String> payload) {
 		try {
-			User u = new User();
+			UsersEntity u = new UsersEntity();
 	    	
 			// payload 안에 JSON 데이터가 들어옴
 	        String name = payload.get("userName");
 	        String userid = payload.get("userId");
 	        String email = payload.get("email");
-	        String birthdayStr = payload.get("birthdate");
-		    // 문자열 → LocalDate 변환
-		    LocalDate birthday = LocalDate.parse(birthdayStr);
+	        String age_str = payload.get("age");
+	        int age = Integer.parseInt(age_str);     
 		    
-	        String gender = payload.get("gender");
 	        String password = payload.get("password");
 	        String nickname = payload.get("nickname");
 	
@@ -52,19 +51,17 @@ public class UserController {
 	        System.out.println("userid = " + userid);
 	        System.out.println("password = " + password);
 	        System.out.println("email = " + email);
-	        System.out.println("birthday =" + birthday);
-	        System.out.println("gender =" + gender);
+	        System.out.println("age =" + age);
 	        System.out.println("nickname =" + nickname);
 	        
 	        u.setName(name);
 	        u.setUserId(userid);
 	        u.setEmail(email);
-	        u.setBirthday(birthday);
-	        u.setGender(gender);
-	        u.setPassword(password);
+	        u.setAge(age);
+	        u.setPasswordHash(password);
 	        u.setNickname(nickname);
 	        
-	        User user = userService.save(u);
+	        UsersEntity user = userService.save(u);
 	
 	     // 성공하면 200 OK와 메시지
 	        return ResponseEntity.ok("회원가입 정보 저장 완료");
@@ -81,7 +78,7 @@ public class UserController {
 	    String userId = payload.get("userId");
 	    String password = payload.get("password");
 
-	    User user = userService.findByUserIdAndPassword(userId, password);
+	    UsersEntity user = userService.findByUserIdAndPassword(userId, password);
 
 	    if (user == null) {
 	        // 실패도 Map으로 반환
@@ -98,7 +95,7 @@ public class UserController {
 		String name = payload.get("name");
 		String email = payload.get("email");
 		
-		User user = userService.findByNameAndEmail(name, email);
+		UsersEntity user = userService.findByNameAndEmail(name, email);
 		return ResponseEntity.ok(Map.of("message", "로그인 성공", "userId", user.getUserId()));
 	}
 	
@@ -144,7 +141,7 @@ public class UserController {
 	            )
 	        );
 
-	}
+	    }
 	
 	}
 

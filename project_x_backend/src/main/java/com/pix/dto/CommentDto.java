@@ -41,11 +41,11 @@ public class CommentDto {
 
     	    this.content = entity.getContent();
 
-    	    // user null 체크
-    	    if (entity.getUser() != null) {
-    	        this.userId = entity.getUser().getUserId();
-    	        this.nickname = entity.getUser().getNickname();
-    	    }
+//    	    // user null 체크
+//    	    if (entity.getUser() != null) {
+//    	        this.userId = entity.getUser().getUserId();
+//    	        this.nickname = entity.getUser().getNickname();
+//    	    }
 
     	    this.displayAvatarUrl = entity.getDisplayAvatarUrl();
     	    this.isAnonymous = entity.getIsAnonymous();

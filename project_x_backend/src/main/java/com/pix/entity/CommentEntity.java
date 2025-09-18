@@ -30,7 +30,7 @@ public class CommentEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private UserEntity user;
+    private UsersEntity user;
     
     @Lob
     @Column(name = "content", nullable = false)

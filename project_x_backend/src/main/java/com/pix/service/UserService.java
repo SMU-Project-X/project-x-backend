@@ -2,15 +2,20 @@ package com.pix.service;
 
 import org.springframework.stereotype.Service;
 
-import com.pix.dto.User;
+import com.pix.dto.UserDto;
+import com.pix.dto.UserDto.UserStats;
+import com.pix.entity.UsersEntity;
+
 
 @Service
 public interface UserService {
-	User save(User u) ;
+	UsersEntity save(UsersEntity u) ;
 
-	User findByUserIdAndPassword(String userId, String password);
+	UsersEntity findByUserIdAndPassword(String userId, String password);
 
-	User findByNameAndEmail(String name, String email);
+	UsersEntity findByNameAndEmail(String name, String email);
+
+	UserStats getUserStats();
 
 }
 

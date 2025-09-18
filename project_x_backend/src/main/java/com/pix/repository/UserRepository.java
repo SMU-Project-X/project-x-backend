@@ -3,12 +3,14 @@ package com.pix.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
-import com.pix.dto.User;
+import com.pix.entity.UsersEntity;
 
-public interface UserRepository extends JpaRepository<User, String>{
 
-	User findByUserId(String userId);
 
-	User findByNameAndEmail(String name, String email);
+public interface UserRepository extends JpaRepository<UsersEntity, String>{
+
+	UsersEntity findByUserId(String userId);
+
+	UsersEntity findByNameAndEmail(String name, String email);
 }
 

@@ -5,11 +5,11 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 import com.pix.repository.MemberRepository;
-import com.pix.repository.UsersRepository;
+import com.pix.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.pix.ProjectxApplication;
+import com.pix.ProjectXBackendApplication;
 import com.pix.dto.CommentDto;
 import com.pix.entity.CommentEntity;
 import com.pix.entity.MemberEntity;
@@ -18,7 +18,7 @@ import com.pix.repository.CommentRepository;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-    private final ProjectxApplication projectxApplication;
+    private final ProjectXBackendApplication projectxApplication;
     
     @Autowired
     private MemberRepository memberRepository;
@@ -27,10 +27,10 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
     
     @Autowired
-    private UsersRepository userRepository;
+    private UserRepository userRepository;
     
 
-    public CommentServiceImpl(CommentRepository commentRepository, MemberRepository memberRepository, ProjectxApplication projectxApplication) {
+    public CommentServiceImpl(CommentRepository commentRepository, MemberRepository memberRepository, ProjectXBackendApplication projectxApplication) {
 		 this.commentRepository = commentRepository;
 		 this.memberRepository = memberRepository;
 		 this.projectxApplication = projectxApplication;

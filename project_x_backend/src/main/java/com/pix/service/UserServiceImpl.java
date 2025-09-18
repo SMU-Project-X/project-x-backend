@@ -3,7 +3,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.pix.dto.User;
+
+import com.pix.entity.UsersEntity;
+import com.pix.dto.UserDto.UserStats;
 import com.pix.repository.UserRepository;
 
 @Service
@@ -13,25 +15,31 @@ public class UserServiceImpl implements UserService {
 	private BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
 	@Override
-	public User save(User u) {
-		u.setPassword(passwordEncoder.encode(u.getPassword()));
-		User user = userRepository.save(u);
+	public UsersEntity save(UsersEntity u) {
+		u.setPasswordHash(passwordEncoder.encode(u.getPasswordHash()));
+		UsersEntity user = userRepository.save(u);
 		return user;
 	}
 
 	@Override
-	public User findByUserIdAndPassword(String userId, String password) {
-		User user = userRepository.findByUserId(userId);
-		if (user != null && passwordEncoder.matches(password, user.getPassword())) {
+	public UsersEntity findByUserIdAndPassword(String userId, String password) {
+		UsersEntity user = userRepository.findByUserId(userId);
+		if (user != null && passwordEncoder.matches(password, user.getPasswordHash())) {
 	        return user;
 	    }
 	    return null; // 로그인 실패
 	}
 
 	@Override
-	public User findByNameAndEmail(String name, String email) {
-		User user = userRepository.findByNameAndEmail(name, email);
+	public UsersEntity findByNameAndEmail(String name, String email) {
+		UsersEntity user = userRepository.findByNameAndEmail(name, email);
 		return user;
+	}
+
+	@Override
+	public UserStats getUserStats() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 

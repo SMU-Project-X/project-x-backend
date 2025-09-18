@@ -17,6 +17,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/signup/**").permitAll() // 회원가입 허용
                 .requestMatchers("/api/login/**").permitAll()
+                .requestMatchers("/api/products/**").permitAll() // 상품 API 허용
                 .anyRequest().authenticated()
             );
 
