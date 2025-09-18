@@ -27,6 +27,14 @@ repositories {
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	// 비밀번호 해시 처리
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    // 이메일 인증
+    implementation 'org.springframework.boot:spring-boot-starter-mail'
+    implementation 'javax.mail:javax.mail-api:1.6.2'
+	
+	// 웹
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
@@ -50,9 +58,11 @@ dependencies {
 	implementation 'javax.mail:javax.mail-api:1.6.2'
 }
 
+
 // 🟢 이 부분을 올바른 위치에 배치
 tasks.named('compileJava') {
 	options.compilerArgs.add('-parameters')
+
 }
 
 tasks.named('test') {
