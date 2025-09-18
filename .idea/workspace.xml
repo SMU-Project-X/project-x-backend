@@ -136,7 +136,7 @@
       <method v="2" />
     </configuration>
     <configuration name="ProjectXBackendApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="21" />
+      <option name="ALTERNATIVE_JRE_PATH" value="21 (2)" />
       <option name="FRAME_DEACTIVATION_UPDATE_POLICY" value="UpdateClassesAndResources" />
       <module name="project_x_backend.main" />
       <option name="SPRING_BOOT_MAIN_CLASS" value="com.pix.ProjectXBackendApplication" />
