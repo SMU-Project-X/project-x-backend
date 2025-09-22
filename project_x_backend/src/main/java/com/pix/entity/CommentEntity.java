@@ -24,7 +24,7 @@ public class CommentEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private MemberEntity member;
+    private MyIdolMemberInfo member;
 
     // USER 테이블과 FK (로그인 유저)
     @ManyToOne(fetch = FetchType.LAZY)

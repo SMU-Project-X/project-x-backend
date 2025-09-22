@@ -19,17 +19,16 @@ import com.pix.dto.CommentDto;
 //import com.pix.dto.CommentDto;
 import com.pix.entity.CommentEntity;
 import com.pix.repository.CommentRepository;
-import com.pix.repository.MemberRepository;
+import com.pix.repository.MyIdolMemberInfoRepository;
 import com.pix.service.CommentService;
 
 
 @RestController
 @RequestMapping("/api/comments")
-@CrossOrigin(origins = "*")
 public class CommentController {
 
 	private static final com.pix.dto.CommentDto CommentDto = null;
-	@Autowired MemberRepository memberRepository;
+	@Autowired MyIdolMemberInfoRepository memberRepository;
 	@Autowired CommentRepository commentRepository;
 	@Autowired CommentService commentService;
 	
