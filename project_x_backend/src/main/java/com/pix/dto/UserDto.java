@@ -52,7 +52,7 @@ public class UserDto {
     @AllArgsConstructor
     @Builder
     public static class Response {
-        private Long userId;
+        private String userId;
         private String username;
         private String email;
         private String name;
