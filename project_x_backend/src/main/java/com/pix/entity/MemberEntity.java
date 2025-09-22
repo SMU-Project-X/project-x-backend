@@ -3,6 +3,7 @@ package com.pix.entity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.ToString;
 
 import java.time.LocalDate;
 
@@ -10,6 +11,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Table(name = "member_info")
+@ToString
 public class MemberEntity {
 	// 멤버이름, 멤버 아이디, 이미지 정보, 성격
 
@@ -38,6 +40,4 @@ public class MemberEntity {
 
     @Column(name = "APPEARANCE")
     private String appearance;
-
-    
 }

@@ -25,6 +25,9 @@ public interface ProductService {
     // === 유틸리티 메서드 ===
     List<Long> getAllCategoryIds();
     List<ProductDto.Response> getLowStockProducts();
+    
+    // 🔥 추가된 메서드들
+    long getTotalProductCount(); // 총 상품 수 조회
 
     // === 재고 관리 ===
     boolean checkStock(Long productId, int quantity);

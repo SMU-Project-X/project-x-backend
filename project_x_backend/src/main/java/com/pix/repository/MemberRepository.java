@@ -11,4 +11,6 @@ import com.pix.entity.MemberEntity;
 public interface MemberRepository extends JpaRepository<MemberEntity, Long> {
 
 	List<MemberEntity> findAll();
+
+	MemberEntity findByMemberName(String memberName);
 }
