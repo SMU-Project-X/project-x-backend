@@ -14,7 +14,7 @@ import com.pix.entity.BannerEntity;
 import com.pix.service.BannerService;
 
 @RestController
-@RequestMapping("api/banners")
+@RequestMapping("/api/banners")
 public class BannerController {
 	
 	@Autowired BannerService bannerService;

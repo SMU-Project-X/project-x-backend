@@ -27,7 +27,7 @@ public class SecurityConfig {
                 .requestMatchers("/api/banners/**").permitAll()
                 .requestMatchers("/api/vote/**").permitAll()
                 .requestMatchers("/api/comment/**").permitAll()
-                .anyRequest().authenticated()
+//                .anyRequest().authenticated()
 
                 .requestMatchers("/api/memberinfo/**").permitAll()
                 .requestMatchers("/api/posts/**").permitAll()
