@@ -8,13 +8,13 @@ import java.time.LocalDateTime;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+
 @Entity
 @Getter
 @Setter
 @Table(name = "comment_reply")
 public class CommentEntity {
-	
-	// 답글 달기: 댓글 시퀀스번호, 아이돌 이름, 아이디, 유저 아이디, 유저 닉네임, 유저 이미지, 유저의 댓글
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "comment_id")
@@ -26,17 +26,17 @@ public class CommentEntity {
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private MyIdolMemberInfo member;
 
-    // USER 테이블과 FK (로그인 유저)
+    // FK to UsersEntity (user_id: String)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     private UsersEntity user;
-    
+
     @Lob
     @Column(name = "content", nullable = false)
     private String content;
 
-    // 유저닉네임
+    // 작성 당시 닉네임 (익명 가능)
     @Column(length = 100)
     private String nickname;
 
@@ -55,5 +55,14 @@ public class CommentEntity {
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-	
+    @PrePersist
+    public void prePersist() {
+        this.createdAt = LocalDateTime.now();
+        if (this.isAnonymous == null) this.isAnonymous = "0";
+    }
+
+    @PreUpdate
+    public void preUpdate() {
+        this.updatedAt = LocalDateTime.now();
+    }
 }

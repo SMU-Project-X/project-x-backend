@@ -18,6 +18,9 @@ public class SecurityConfig {
                 .requestMatchers("/api/signup/**").permitAll() // 회원가입 허용
                 .requestMatchers("/api/login/**").permitAll()
                 .requestMatchers("/api/products/**").permitAll() // 상품 API 허용
+                .requestMatchers("/api/banners/**").permitAll()
+                .requestMatchers("/api/vote/**").permitAll()
+                .requestMatchers("/api/comment/**").permitAll()
                 .anyRequest().authenticated()
             );
 

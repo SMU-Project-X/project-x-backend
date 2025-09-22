@@ -31,6 +31,7 @@ public class BannerController {
 	@GetMapping("/list")
 	public List<BannerEntity> getBanners() {
 		List<BannerEntity> banners = bannerService.findAll();
+		
 		return banners;
 	}
 
