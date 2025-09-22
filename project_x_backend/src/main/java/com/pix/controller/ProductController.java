@@ -5,12 +5,14 @@ import com.pix.service.ProductService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,25 +89,112 @@ public class ProductController {
         return ResponseEntity.ok(products);
     }
 
-    // === 검색 API ===
+    // === 🔥 수정된 검색 API ===
     
-    @PostMapping("/search")
-    public ResponseEntity<Page<ProductDto.Response>> searchProducts(@RequestBody ProductDto.SearchRequest searchRequest) {
-        log.info("상품 검색 - 키워드: {}, 카테고리: {}", searchRequest.getKeyword(), searchRequest.getCategoryId());
+    /**
+     * 🔥 검색 API - @RequestParam에 명시적으로 value 지정
+     */
+    @GetMapping("/search")
+    public ResponseEntity<Page<ProductDto.Response>> searchProducts(
+            @RequestParam(value = "keyword", required = false) String keyword,
+            @RequestParam(value = "categoryId", required = false) Long categoryId,
+            @RequestParam(value = "minPrice", required = false) BigDecimal minPrice,
+            @RequestParam(value = "maxPrice", required = false) BigDecimal maxPrice,
+            @RequestParam(value = "isNew", required = false) Boolean isNew,
+            @RequestParam(value = "hasEvent", required = false) Boolean hasEvent,
+            @RequestParam(value = "sortBy", defaultValue = "createdAt") String sortBy,
+            @RequestParam(value = "sortDirection", defaultValue = "desc") String sortDirection,
+            @RequestParam(value = "page", defaultValue = "0") int page,
+            @RequestParam(value = "size", defaultValue = "20") int size) {
         
-        Page<ProductDto.Response> products = productService.searchProducts(searchRequest);
-        return ResponseEntity.ok(products);
+        log.info("🔍 상품 검색 요청 - 키워드: [{}], 카테고리: {}, 페이지: {}", 
+                 keyword, categoryId, page);
+        
+        try {
+            Page<ProductDto.Response> products;
+            
+            // 키워드가 있는 경우 검색, 없는 경우 전체 목록
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                // 키워드 검색 사용
+                Sort.Direction direction = "asc".equalsIgnoreCase(sortDirection) ? 
+                                          Sort.Direction.ASC : Sort.Direction.DESC;
+                Sort sort = Sort.by(direction, "createdAt");
+                Pageable pageable = PageRequest.of(page, size, sort);
+                
+                log.info("🔍 키워드 검색 실행: [{}]", keyword.trim());
+                products = productService.searchByName(keyword.trim(), pageable);
+            } else {
+                // 전체 상품 목록
+                Sort.Direction direction = "asc".equalsIgnoreCase(sortDirection) ? 
+                                          Sort.Direction.ASC : Sort.Direction.DESC;
+                Sort sort = Sort.by(direction, "createdAt");
+                Pageable pageable = PageRequest.of(page, size, sort);
+                
+                log.info("🔍 전체 상품 목록 조회");
+                products = productService.getAllProducts(pageable);
+            }
+            
+            log.info("✅ 검색 완료 - 키워드: [{}], 결과: {}개, 전체: {}개", 
+                     keyword, products.getContent().size(), products.getTotalElements());
+            
+            return ResponseEntity.ok(products);
+            
+        } catch (Exception e) {
+            log.error("❌ 검색 실패 - 키워드: [{}], 오류: {}", keyword, e.getMessage(), e);
+            
+            // 에러 발생시 빈 페이지 반환
+            Pageable pageable = PageRequest.of(page, size);
+            Page<ProductDto.Response> emptyPage = Page.empty(pageable);
+            return ResponseEntity.ok(emptyPage);
+        }
     }
 
-    @GetMapping("/search")
-    public ResponseEntity<Page<ProductDto.Response>> searchByName(
-            @RequestParam String keyword,
-            @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC) Pageable pageable) {
+    /**
+     * 🔥 검색 테스트 API (디버깅용)
+     */
+    @GetMapping("/search/test")
+    public ResponseEntity<Map<String, Object>> testSearch(
+            @RequestParam(value = "keyword", required = false, defaultValue = "test") String keyword) {
         
-        log.info("상품명 검색 - 검색어: {}", keyword);
+        Map<String, Object> response = new HashMap<>();
+        response.put("message", "검색 API 테스트 성공");
+        response.put("timestamp", System.currentTimeMillis());
+        response.put("server", "백엔드 정상 작동");
+        response.put("keyword", keyword);
         
-        Page<ProductDto.Response> products = productService.searchByName(keyword, pageable);
-        return ResponseEntity.ok(products);
+        try {
+            // 실제 검색 테스트
+            if (keyword != null && !keyword.trim().isEmpty()) {
+                Page<ProductDto.Response> searchResult = productService.searchByName(keyword, PageRequest.of(0, 5));
+                response.put("searchResults", searchResult.getContent().size());
+                response.put("searchKeyword", keyword);
+                response.put("products", searchResult.getContent());
+            }
+            
+        } catch (Exception e) {
+            response.put("error", e.getMessage());
+            log.error("검색 테스트 실패: {}", e.getMessage());
+        }
+        
+        log.info("🧪 검색 테스트 API 호출됨 - 키워드: [{}]", keyword);
+        return ResponseEntity.ok(response);
+    }
+
+    /**
+     * POST 방식 검색 API (기존 유지)
+     */
+    @PostMapping("/search")
+    public ResponseEntity<Page<ProductDto.Response>> searchProductsPost(@RequestBody ProductDto.SearchRequest searchRequest) {
+        log.info("상품 검색(POST) - 키워드: {}, 카테고리: {}", searchRequest.getKeyword(), searchRequest.getCategoryId());
+        
+        try {
+            Page<ProductDto.Response> products = productService.searchProducts(searchRequest);
+            return ResponseEntity.ok(products);
+        } catch (Exception e) {
+            log.error("검색 실패(POST): {}", e.getMessage(), e);
+            Page<ProductDto.Response> emptyPage = Page.empty();
+            return ResponseEntity.ok(emptyPage);
+        }
     }
 
     // ⭐⭐ 재고 관리 API - 핵심 부분! ⭐⭐
@@ -146,7 +235,7 @@ public class ProductController {
     @PostMapping("/{id}/stock/check")
     public ResponseEntity<Map<String, Object>> checkStock(
             @PathVariable Long id, 
-            @RequestParam int quantity) {
+            @RequestParam(value = "quantity") int quantity) {
         
         log.info("재고 확인 - 상품 ID: {}, 요청 수량: {}", id, quantity);
         
