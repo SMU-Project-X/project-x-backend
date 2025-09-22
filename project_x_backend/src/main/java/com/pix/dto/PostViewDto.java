@@ -11,11 +11,11 @@ public class PostViewDto {
 	private String image_url;
 	private LocalDateTime created_at;
 	private Long hit;
-	private String username;
+	private String nickname;
 	
 	// 생성자 추가
 	public PostViewDto(Long id, String title, String content, String member,
-            String image_url, LocalDateTime created_at, Long hit, String username) {
+            String image_url, LocalDateTime created_at, Long hit, String nickname) {
 		this.id = id;
 		this.title = title;
 		this.content = content;
@@ -23,7 +23,7 @@ public class PostViewDto {
 		this.image_url = image_url;
 		this.created_at = created_at;
 		this.hit = hit;
-		this.username = username;
+		this.nickname = nickname;
 	}
 	
 	public Long getId() {
@@ -68,10 +68,13 @@ public class PostViewDto {
 	public void setHit(Long hit) {
 		this.hit = hit;
 	}
-	public String getUsername() {
-		return username;
+
+	public String getNickname() {
+		return nickname;
 	}
-	public void setUsername(String username) {
-		this.username = username;
+
+	public void setNickname(String nickname) {
+		this.nickname = nickname;
 	}
+	
 }

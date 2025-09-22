@@ -2,6 +2,8 @@ package com.pix.dto;
 
 import java.time.LocalDateTime;
 
+import com.pix.entity.UsersEntity;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -21,8 +23,8 @@ public class Post {	// DB테이블이랑 매핑되는 엔티티
 	private Long id;
 	
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "user_id")
-	private User user;
+	@JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+	private UsersEntity user;
 	
 	private String member;
 	private String image_url;
@@ -42,10 +44,10 @@ public class Post {	// DB테이블이랑 매핑되는 엔티티
 	public void setId(Long id) {
 		this.id = id;
 	}
-	public User getUser() {
+	public UsersEntity getUser() {
 		return user;
 	}
-	public void setUser(User user) {
+	public void setUser(UsersEntity user) {
 		this.user = user;
 	}
 	public String getMember() {

@@ -13,11 +13,16 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+        	.cors()
+        	.and()
             .csrf(csrf -> csrf.disable()) // 개발용
             .authorizeHttpRequests(auth -> auth
                 .requestMatchers("/api/signup/**").permitAll() // 회원가입 허용
                 .requestMatchers("/api/login/**").permitAll()
                 .requestMatchers("/api/products/**").permitAll() // 상품 API 허용
+                .requestMatchers("/api/memberinfo/**").permitAll()
+                .requestMatchers("/api/posts/**").permitAll()
+                .requestMatchers("/upload/**").permitAll()    // 업로드 이미지 접근 허용
                 .anyRequest().authenticated()
             );
 
