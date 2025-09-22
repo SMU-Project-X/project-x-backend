@@ -24,12 +24,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.pix.dto.Post;
 import com.pix.dto.PostResponseDto;
 import com.pix.dto.PostViewDto;
-import com.pix.dto.User;
+import com.pix.dto.UserDto;
+import com.pix.entity.UsersEntity;
 import com.pix.repository.PicturePostRepository;
-import com.pix.repository.PictureUserRepository;
+import com.pix.repository.UserRepository;
 import com.pix.service.PicturePostService;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+import org.springframework.web.bind.annotation.RequestBody;
 import jakarta.transaction.Transactional;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -40,7 +41,7 @@ public class PicturePostController {
 	private PicturePostRepository postRepository;
 	
 	@Autowired
-	private PictureUserRepository userRepository;
+	private UserRepository userRepository;
 	
 	private final PicturePostService postService;
 	public PicturePostController(PicturePostService postService) {
@@ -97,10 +98,8 @@ public class PicturePostController {
 		post.setHit((long) 0);
 		post.setCreated_at(LocalDateTime.now());
 		
-		User user = userRepository.findById(1234L)
-	             .orElseThrow(() -> new RuntimeException("User not found"));
+		UsersEntity user = userRepository.findByUserId("aaa");	// 테스트 아이디 aaa
 		post.setUser(user);
-
 		
 		return postRepository.save(post);
 	}

@@ -11,17 +11,18 @@ import com.pix.dto.MemberInfo;
 import com.pix.repository.PictureMemberInfoRepository;
 
 @RestController
-@RequestMapping("/api/memberName")
+@RequestMapping("/api/memberinfo")
 @CrossOrigin(origins = "http://localhost:5173")
 public class PictureMemberInfoController {
-	private final PictureMemberInfoRepository memberInfoRepository;
-	
-	public PictureMemberInfoController(PictureMemberInfoRepository memberInfoRepository) {
-		this.memberInfoRepository = memberInfoRepository;
-	}
-	
-	@GetMapping
-	public List<MemberInfo> getAllMembers(){
-		return memberInfoRepository.findAll();
-	}
+
+	private final PictureMemberInfoRepository memberRepository;
+
+    public PictureMemberInfoController(PictureMemberInfoRepository memberRepository) {
+        this.memberRepository = memberRepository;
+    }
+
+    @GetMapping
+    public List<MemberInfo> getAllMembers() {
+        return memberRepository.findAll();
+    }
 }

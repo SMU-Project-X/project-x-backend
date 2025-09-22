@@ -13,7 +13,9 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            // CSRF 비활성화 (API 서버이므로)
+        	.cors()
+        	.and()
+
             .csrf(csrf -> csrf.disable())
             
             // 🔧 요청 권한 설정 - 매우 관대하게 수정
@@ -21,7 +23,12 @@ public class SecurityConfig {
                 // 회원가입/로그인 API
                 .requestMatchers("/api/signup/**").permitAll()
                 .requestMatchers("/api/login/**").permitAll()
-                
+
+                .requestMatchers("/api/memberinfo/**").permitAll()
+                .requestMatchers("/api/posts/**").permitAll()
+                .requestMatchers("/upload/**").permitAll()    // 업로드 이미지 접근 허용
+                .anyRequest().authenticated()
+                                   
                 // 🔧 상품 관련 API 모두 허용
                 .requestMatchers("/api/products/**").permitAll()
                 .requestMatchers("/api/products/search/**").permitAll()
