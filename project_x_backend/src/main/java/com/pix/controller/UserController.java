@@ -1,6 +1,8 @@
 package com.pix.controller;
 
 import java.time.LocalDate;
+
+import java.util.List;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,9 +13,17 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import com.pix.dto.UserDto;
+import com.pix.entity.MemberEntity;
+import com.pix.entity.MyIdolEntity;
+import com.pix.entity.MyIdolMemberEntity;
 import com.pix.entity.UsersEntity;
+import com.pix.entity.psychoTypeEntity;
 import com.pix.service.EmailService;
 import com.pix.service.EmailServiceImpl;
+import com.pix.service.MemberService;
+import com.pix.service.MyIdolMemberService;
+import com.pix.service.MyIdolService;
+import com.pix.service.PsychoTypeService;
 import com.pix.service.UserService;
 
 import jakarta.servlet.http.HttpSession;
@@ -23,8 +33,13 @@ public class UserController {
 	private final EmailServiceImpl emailServiceImpl;
 	
 	@Autowired UserService userService;
-	@Autowired HttpSession session;
+	@Autowired MyIdolService myIdolService;
+	@Autowired MemberService memberService;
+	@Autowired PsychoTypeService psychoTypeService;
 	@Autowired EmailService emailService; // 이메일 발송
+	@Autowired MyIdolMemberService myIdolMemberService;
+
+	@Autowired HttpSession session;
 	
 	UserController(EmailServiceImpl emailServiceImpl) {
 		this.emailServiceImpl = emailServiceImpl;
@@ -33,44 +48,72 @@ public class UserController {
 	// ===== 기존 API들 (그대로 유지) =====
 	
 	@PostMapping("/api/signup/info")
-    public ResponseEntity<String> info(@RequestBody Map<String, String> payload) {
-		try {
-			UsersEntity u = new UsersEntity();
-	    	
-			// payload 안에 JSON 데이터가 들어옴
-	        String name = payload.get("userName");
-	        String userid = payload.get("userId");
-	        String email = payload.get("email");
-	        String age_str = payload.get("age");
-	        int age = Integer.parseInt(age_str);     
-		    
-	        String password = payload.get("password");
-	        String nickname = payload.get("nickname");
+	public ResponseEntity<String> info(@RequestBody Map<String, Object> payload) {
+	    try {
+	        // 1. 유저 저장
+	        UsersEntity u = new UsersEntity();
+	        u.setName((String) payload.get("userName"));
+	        u.setUserId((String) payload.get("userId"));
+	        u.setEmail((String) payload.get("email"));
+	        u.setNickname((String) payload.get("nickname"));
+	        u.setPasswordHash((String) payload.get("password"));
 
-	        System.out.println("username = " + name);
-	        System.out.println("userid = " + userid);
-	        System.out.println("password = " + password);
-	        System.out.println("email = " + email);
-	        System.out.println("age =" + age);
-	        System.out.println("nickname =" + nickname);
-	        
-	        u.setName(name);
-	        u.setUserId(userid);
-	        u.setEmail(email);
+	        // age 안전 캐스팅
+	        Object ageObj = payload.get("age");
+	        int age = (ageObj instanceof Integer) ? (Integer) ageObj : Integer.parseInt(ageObj.toString());
 	        u.setAge(age);
-	        u.setPasswordHash(password);
-	        u.setNickname(nickname);
-	        
-	        UsersEntity user = userService.save(u);
 
-	     // 성공하면 200 OK와 메시지
-	        return ResponseEntity.ok("회원가입 정보 저장 완료");
+	        UsersEntity savedUser = userService.save(u);
+
+	        // 2. MyIdolEntity 생성
+	        MyIdolEntity myIdol = new MyIdolEntity();
+	        myIdol.setUserId(savedUser.getUserId());
+	        MyIdolEntity savedMyIdol = myIdolService.save(myIdol);
+
+	        System.out.println(savedMyIdol);
+
+	        // 3. 포지션 배열 (임시: index 기반)
+	        String[] positions = {"보컬", "댄스", "랩", "비주얼"};
+
+	        // 4. 프론트에서 보낸 selectedCharacters 꺼내기
+	        List<Map<String, Object>> members =
+	                (List<Map<String, Object>>) payload.get("selectedCharacters");
+	        
+////
+	        for (int i = 0; i < members.size(); i++) {
+		        Map<String, Object> m = members.get(i);
+		        
+		        System.out.println(m);
+	
+		        MyIdolMemberEntity idolMember = new MyIdolMemberEntity();
+		        idolMember.setMyIdol(savedMyIdol);
+		        idolMember.setPosition(positions[i]);
+		        idolMember.setMbti((String) m.get("mbti"));
+		        // MemberInfoEntity 매핑
+		        String memberName = (String) m.get("name");
+		        MemberEntity memberInfo = memberService.findByMemberName(memberName);
+		        System.out.println("멤버인포: "+ memberInfo);
+		        idolMember.setMemberInfo(memberInfo);
+//	
+		        // traits → psychoType 매핑
+		        List<String> traits = (List<String>) m.get("traits");
+		        psychoTypeEntity psychoType = psychoTypeService.findByTraits(traits);
+		        idolMember.setPsychoType(psychoType);
+		        
+		        System.out.println(idolMember);
+	
+		        MyIdolMemberEntity myIdolMember = myIdolMemberService.save(idolMember);
+		    }
+
+
+	        return ResponseEntity.ok("회원가입 + MyIdol + 멤버 저장 완료");
 	    } catch (Exception e) {
-	        // 문제가 생기면 400 또는 500 에러와 메시지
+	        e.printStackTrace();
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-	                             .body("회원가입 정보 저장 실패");
+	                             .body("회원가입 정보 저장 실패: " + e.getMessage());
 	    }
 	}
+
 	
 	//  🔥 수정된 로그인 API (MD 페이지 호환 + 관리자 권한 체크)
 	@PostMapping("/api/login")
