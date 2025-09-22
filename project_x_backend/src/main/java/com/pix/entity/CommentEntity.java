@@ -1,6 +1,7 @@
 package com.pix.entity;
 
 import jakarta.persistence.*;
+import lombok.Data;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -12,6 +13,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 @Entity
 @Getter
 @Setter
+@Data
 @Table(name = "comment_reply")
 public class CommentEntity {
 

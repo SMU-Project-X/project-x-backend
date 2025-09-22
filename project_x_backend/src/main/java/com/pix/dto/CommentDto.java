@@ -14,6 +14,8 @@ import lombok.Setter;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Getter
+@Setter
 @Builder
 public class CommentDto {
     private Long commentId;
