@@ -27,7 +27,6 @@ public class SecurityConfig {
                 .requestMatchers("/api/memberinfo/**").permitAll()
                 .requestMatchers("/api/posts/**").permitAll()
                 .requestMatchers("/upload/**").permitAll()    // 업로드 이미지 접근 허용
-                .anyRequest().authenticated()
                                    
                 // 🔧 상품 관련 API 모두 허용
                 .requestMatchers("/api/products/**").permitAll()
