@@ -4,24 +4,24 @@ import java.lang.reflect.Member;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import com.pix.repository.MemberRepository;
+import com.pix.repository.MyIdolMemberInfoRepository;
 import com.pix.repository.UserRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.pix.ProjectXBackendApplication;
+import com.pix.ProjectxApplication;
 import com.pix.dto.CommentDto;
 import com.pix.entity.CommentEntity;
-import com.pix.entity.MemberEntity;
+import com.pix.entity.MyIdolMemberInfo;
 import com.pix.entity.UsersEntity;
 import com.pix.repository.CommentRepository;
 
 @Service
 public class CommentServiceImpl implements CommentService {
-    private final ProjectXBackendApplication projectxApplication;
+    private final ProjectxApplication projectxApplication;
     
     @Autowired
-    private MemberRepository memberRepository;
+    private MyIdolMemberInfoRepository memberRepository;
     
     @Autowired 
     private CommentRepository commentRepository;
@@ -30,7 +30,7 @@ public class CommentServiceImpl implements CommentService {
     private UserRepository userRepository;
     
 
-    public CommentServiceImpl(CommentRepository commentRepository, MemberRepository memberRepository, ProjectXBackendApplication projectxApplication) {
+    public CommentServiceImpl(CommentRepository commentRepository, MyIdolMemberInfoRepository memberRepository, ProjectxApplication projectxApplication) {
 		 this.commentRepository = commentRepository;
 		 this.memberRepository = memberRepository;
 		 this.projectxApplication = projectxApplication;
@@ -74,7 +74,7 @@ public class CommentServiceImpl implements CommentService {
 	 public CommentEntity saveComment(String content, Long memberId, String memberName) {
 		 
 		// memberId 로 MemberEntity 를 조회
-	    MemberEntity member = memberRepository.findById(memberId)
+	    MyIdolMemberInfo member = memberRepository.findById(memberId)
 	            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버 ID: " + memberId));
 
 	     CommentEntity commentEntity = new CommentEntity();

@@ -1,7 +1,5 @@
 package com.pix.entity;
 
-import java.time.LocalDateTime;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -14,23 +12,15 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-@Table(name="banners")
-public class BannerEntity {
+@Table(name="*")
+public class VoteTypeEntity {
+	
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name="banner_id")
-	private Long bannerId;
+	@Column(name="vote_type_id")
+	private Long voteTypeId;
 	
-	@Column(name="banner_title")
-	private String bannerTitle;
-	
-	@Column(name="start_date")
-	private LocalDateTime startDate;
-
-	@Column(name="end_date")
-	private LocalDateTime endDate;
-	
-	@Column(name="banner_img_Url")
-	private String bannerImgUrl;
+	@Column(name="type_name")
+	private String typeName;
 
 }
