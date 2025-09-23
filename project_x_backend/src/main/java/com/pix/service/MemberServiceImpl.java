@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.pix.entity.MemberEntity;
-import com.pix.entity.MyIdolMemberInfo;
 import com.pix.repository.MemberRepository;
 
 @Service
