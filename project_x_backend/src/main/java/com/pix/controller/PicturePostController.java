@@ -31,6 +31,8 @@ import com.pix.repository.UserRepository;
 import com.pix.service.PicturePostService;
 
 import org.springframework.web.bind.annotation.RequestBody;
+
+import jakarta.servlet.http.HttpSession;
 import jakarta.transaction.Transactional;
 
 @CrossOrigin(origins = "http://localhost:5173")
@@ -75,7 +77,19 @@ public class PicturePostController {
 	public Post createPost(@RequestParam("title") String title,
 						   @RequestParam("member") String member,
 						   @RequestParam(value="content", required=false) String content,
-						   @RequestParam("image") MultipartFile imageFile) {
+						   @RequestParam("image") MultipartFile imageFile,
+						   HttpSession session) {
+		// 세션에서 로그인 유저 정보 꺼내오기
+		String userId = (String) session.getAttribute("userId");
+	    if (userId == null) {
+	        throw new RuntimeException("로그인 후 이용 가능합니다.");
+	    }
+	    
+	    UsersEntity user = userRepository.findByUserId(userId);
+	    if (user == null) {
+	        throw new RuntimeException("유저 정보를 찾을 수 없습니다.");
+	    }
+		
 		// 	업로드 폴더 경로 지정
 		String uploadDir = "/Users/ryujaeeun/Downloads/upload/";
 		
@@ -95,11 +109,12 @@ public class PicturePostController {
 		post.setMember(member);
 		post.setContent(content);
 		post.setImage_url("/upload/" + fileName);
-		post.setHit((long) 0);
+		post.setHit(0L);
 		post.setCreated_at(LocalDateTime.now());
-		
-		UsersEntity user = userRepository.findByUserId("aaa");	// 테스트 아이디 aaa
 		post.setUser(user);
+		
+//		UsersEntity user = userRepository.findByUserId("aaa");	// 테스트 아이디 aaa
+//		post.setUser(user);
 		
 		return postRepository.save(post);
 	}
