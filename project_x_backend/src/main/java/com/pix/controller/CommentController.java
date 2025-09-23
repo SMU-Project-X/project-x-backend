@@ -40,10 +40,8 @@ public class CommentController {
 	
 	@PostMapping("/save")
 	public ResponseEntity<CommentEntity> saveComment(
-//			@RequestParam("memberId") Long memberId,@RequestParam("name") String name,
 			@RequestBody CommentDto commentDto){
 		
-//		ResponseEntity<CommentEntity> saveComment = commentService.saveComment(commentEntity, memberId,name);
 		CommentEntity saved = commentService.saveComment(
 				commentDto.getContent(), commentDto.getMemberId(), commentDto.getMemberName()
 				);
