@@ -37,19 +37,6 @@ public class CommentController {
 		this.commentService = commentService;
 	}
 
-	// 댓글저장하기
-//	@PostMapping("/save")
-//	public ResponseEntity<CommentEntity> saveComment(@RequestBody CommentDto commentDto) {
-//		
-//		// Dto 전체를 서비스로 전달
-//		CommentEntity saved = commentService.saveComment(CommentDto);
-//		
-//		System.out.println("댓글 DTO: "+ commentDto);
-//		return ResponseEntity.ok(saved);
-//	}
-//	
-	
-	
 	
 	@PostMapping("/save")
 	public ResponseEntity<CommentEntity> saveComment(

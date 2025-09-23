@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import com.pix.entity.MyIdolMemberInfo;
+import com.pix.entity.MemberEntity;
 
 @Repository
-public interface MyIdolMemberInfoRepository extends JpaRepository<MyIdolMemberInfo, Long> {
+public interface MyIdolMemberInfoRepository extends JpaRepository<MemberEntity, Long> {
 
-	List<MyIdolMemberInfo> findAll();
+	List<MemberEntity> findAll();
 }

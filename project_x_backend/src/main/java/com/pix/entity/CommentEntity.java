@@ -26,7 +26,7 @@ public class CommentEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id", nullable = false)
     @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-    private MyIdolMemberInfo member;
+    private MemberEntity member;
 
     // FK to UsersEntity (user_id: String)
     @ManyToOne(fetch = FetchType.LAZY)
