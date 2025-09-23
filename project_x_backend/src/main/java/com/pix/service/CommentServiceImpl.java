@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 import com.pix.ProjectxApplication;
 import com.pix.dto.CommentDto;
 import com.pix.entity.CommentEntity;
-import com.pix.entity.MyIdolMemberInfo;
+import com.pix.entity.MemberEntity;
 import com.pix.entity.UsersEntity;
 import com.pix.repository.CommentRepository;
 
@@ -45,43 +45,18 @@ public class CommentServiceImpl implements CommentService {
 	 }
 
 	 
-	 // 댓글 저장
-//	 @Override
-//	 public CommentEntity saveComment(CommentDto commentDto) {
-//
-//		 MemberEntity member = memberRepository.findById(commentDto.getMemberId())
-//				 .orElseThrow(()-> new RuntimeException("찾고자 하는 멤버가 없습니다."));
-//		 
-//		 UserEntity user = userRepository.findById(commentDto.getUserId())
-//				 .orElseThrow(() -> new RuntimeException("찾고자 하는 유저가 없습니다."));
-//		 
-//		 CommentEntity comment = new CommentEntity();
-//		 comment.setContent(commentDto.getContent());
-//		 comment.setMember(member);
-//		 comment.setUser(user);
-//		 comment.setNickname(commentDto.getNickname());
-//		 comment.setDisplayAvatarUrl(commentDto.getDisplayAvatarUrl());
-//		 comment.setIsAnonymous(commentDto.getIsAnonymous());
-//		 comment.setIpAddress(commentDto.getIpAddress());
-//		 comment.setCreatedAt(LocalDateTime.now());
-//		 comment.setUpdatedAt(LocalDateTime.now());
-//		 
-//		return commentRepository.save(comment);
-//	 }
-
-	 
 	 @Override
-	 public CommentEntity saveComment(String content, Long memberId, String memberName) {
+	 public CommentEntity saveComment(String content, Long memberId, String nickname) {
 		 
 		// memberId 로 MemberEntity 를 조회
-	    MyIdolMemberInfo member = memberRepository.findById(memberId)
+		 MemberEntity member = memberRepository.findById(memberId)
 	            .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 멤버 ID: " + memberId));
 
 	     CommentEntity commentEntity = new CommentEntity();
 	     commentEntity.setMember(member);
 	     commentEntity.setContent(content);
-	     commentEntity.setNickname("익명");
-	     commentEntity.setIsAnonymous("0");
+	     commentEntity.setNickname(nickname);
+	     commentEntity.setIsAnonymous(null);
 	     commentEntity.setCreatedAt(LocalDateTime.now());
 	     commentEntity.setUpdatedAt(LocalDateTime.now());
 
