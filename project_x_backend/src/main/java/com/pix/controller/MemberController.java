@@ -13,7 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/members")
-@CrossOrigin(origins = "*") // React 포트 허용
+//@CrossOrigin(origins = "*") // React 포트 허용
 public class MemberController {
 	
 	@Autowired MemberRepository memberRepository;
