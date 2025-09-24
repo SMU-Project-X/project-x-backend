@@ -18,9 +18,6 @@ public class UsersEntity {
 	@Column(name = "email", length = 255)
 	private String email;
 
-	@Column(name = "username", length = 100, nullable = false)
-	private String username;
-
 	@Column(name = "name", length = 100)
 	private String name;
 
